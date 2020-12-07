@@ -1,0 +1,15 @@
+@charset "UTF-8";
+.item {
+  background-color: #0bd;
+  color: #fff;
+  margin: 5px;
+/*   padding: 10px; */
+}
+.container {
+  display: grid;
+  /*60pxずつ3つ指定*/
+  grid-template-columns: 1fr 8fr 1fr 1fr;
+  background-color: #add8e6;
+  margin: 10px;
+}
+

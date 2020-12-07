@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <title>html作成ページ</title>
+    <meta name="description" content="grid" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div id="end_container">
+      <div class="container" name="container" id="container1" data-count="1">
+        <div class="item">
+          <select name="type" id="type1">
+            <option value="br"></option>
+            <option value="h3">見出し</option>
+            <option value="command">コマンド</option>
+            <option value="link">リンク</option>
+            <option value="text" selected>テキスト</option>
+          </select>
+        </div>
+        <div class="item">
+          <textarea id="textarea1" name="textarea">メッセージを入力</textarea>
+        </div>
+        <div class="item">リンク用</div>
+      </div>
+    </div>
+    <input type="button" title="test" value="追記" onClick="add()" />
+    <input type="button" title="test" value="html作成" onClick="dl()" />
+    <input type="button" title="test" value="確認" onClick="preview()" />
+
+    <div id="preview1">
+      <div id="end"></div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>
+
