@@ -23,7 +23,9 @@ function add() {
     `      <option value="段落"></option>`,
     `      <option value="command">コマンド</option>`,
     `      <option value="link">リンク</option>`,
-    `      <option value="h3">見出し</option>`,
+    `      <option value="h3">見出し３</option>`,
+    `      <option value="h4">見出し４</option>`,
+    `      <option value="image">画像</option>`,
     `      <option value="text" selected>テキスト</option>`,
     `  </select>`,
     `</div>`,
@@ -40,6 +42,7 @@ function add() {
     .insertAdjacentHTML("beforeend", container);
 }
 
+// 作成したhtmlをDLする
 function del(i) {
   // count -= 1;
   var container_id = `container${i}`;
@@ -57,10 +60,12 @@ function make() {
   var j = document.getElementsByName("container").length;
 
   for (let i = 0; i < j; i++) {
-    // htmlを作成する関数を呼び出す
+    //htmlを作成する関数を呼び出す
     html = make_html(i, html);
-    // js = make_js(step, js);
+    //js = make_js(step, js);
   }
+
+  // jsを作成する関数を呼び出す
   js = make_js(js);
   var over_js = [
     `function copyOverrideOnce(s){\n`,
@@ -73,8 +78,10 @@ function make() {
     `}\n`
   ].join("");
 
+  // htmlに記載するjsを連結
   var js_arry = [`<script>\n`, `${over_js}`, `${js}`, `</script>`].join("");
 
+  // htmlとjsを連結
   html += js_arry;
 
   return html;
@@ -95,15 +102,6 @@ function dl() {
   link.href = URL.createObjectURL(blob);
   link.download = "作ったファイル.html";
   link.click();
-}
-
-function tcopy(i) {
-  var messages = document.getElementsByName("pre");
-  messages[i];
-  for (var message in messages) {
-    console.log(message);
-    console.log(message.dataset.pre);
-  }
 }
 
 function make_js(js) {
@@ -130,23 +128,55 @@ function make_html(i, html) {
 
   // テキストエリアの値を取得
   var textarea = document.getElementsByName("textarea")[i].value;
+  var add_html;
 
   if (type === "br") {
-    html += `<pre>${textarea}</pre><br>\n`;
+    add_html = `<pre>${textarea}</pre><br>\n`;
   }
 
   if (type === "text") {
-    html += `<p><pre>${textarea}</pre></p>\n`;
+    add_html = `<pre>${textarea}</pre>\n`;
   }
 
   if (type === "h3") {
-    html += `<h3><pre>${textarea}</pre></h3>\n`;
+    add_html = `<h3>${textarea}</h3>\n`;
+  }
+  
+    if (type === "h4") {
+    add_html = `<h4>${textarea}</h4>\n`;
+  }
+
+  if (type === "image") {
+    add_html = `<img src="${textarea}" alt="images">\n`;
   }
 
   if (type === "command") {
-    html += `<input type="button" value="copy" data-count="${i}" onclick="copy(${i});">\n<div class="code" style=".code {width: 500px; overflow-x: scroll; white-space: nowrap; border: blue 0.5px solid;}">\n  <pre name="pre" id="pre${i}" data-pre="${i}" >${textarea}</pre>\n</div>\n`;
+    add_html = `<input type="button" value="copy" data-count="${i}" onclick="copy(${i});">\n<div class="code" style=".code {width: 500px; overflow-x: scroll; white-space: nowrap; border: blue 0.5px solid;}">\n  <pre name="pre" id="pre${i}" data-pre="${i}" >${textarea}</pre>\n</div>\n`;
   }
 
+  add_html = add_container(add_html, i);
+  html += add_html;
   return html;
 }
 
+function add_container(add_html, i) {
+  add_html = `<div class="item" id="item${i}" data-count=${i}>${add_html}</div>`;
+  return add_html;
+}
+
+function copyOverrideOnce(s) {
+  document.addEventListener(
+    "copy",
+    function(e) {
+      e.clipboardData.setData("text/plain", s);
+      e.preventDefault();
+    },
+    { once: true }
+  );
+}
+function copy(i) {
+  var pre = "pre" + i;
+  var text = document.getElementById(pre).textContent;
+  copyOverrideOnce(text);
+  document.execCommand("copy");
+}
