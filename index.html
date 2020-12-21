@@ -13,9 +13,11 @@
         <div class="item">
           <select name="type" id="type1">
             <option value="br"></option>
-            <option value="h3">見出し</option>
+            <option value="h3">見出し３</option>
+            <option value="h4">見出し４</option>
             <option value="command">コマンド</option>
             <option value="link">リンク</option>
+            <option value="image">画像</option>
             <option value="text" selected>テキスト</option>
           </select>
         </div>
@@ -28,11 +30,14 @@
     <input type="button" title="test" value="追記" onClick="add()" />
     <input type="button" title="test" value="html作成" onClick="dl()" />
     <input type="button" title="test" value="確認" onClick="preview()" />
-
     <div id="preview1">
       <div id="end"></div>
     </div>
     <script src="script.js"></script>
+    <script
+      src="https://code.jquery.com/jquery-3.5.1.js"
+      integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc="
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>
-
